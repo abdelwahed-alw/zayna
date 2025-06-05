@@ -11,7 +11,7 @@ const products = [{
     name_fr: 'Tapis en Laine Beni Ourain',
     price: 499,
     oldPrice: 599,
-    image: './zayna/pictures/prod1.webp',
+    image: 'zayna/pictures/prod1.webp',
     category: 'rug',
     rating: 4.8,
     reviews: 124,
