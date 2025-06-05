@@ -23,7 +23,8 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--light-bg);
     color: var(--text-color);
-    line-height: 1.6
+    line-height: 1.6;
+    overflow-x: hidden; /* تم إضافة هذه الخاصية لمنع التمرير الأفقي غير المرغوب فيه */
 }
 
 body.dark-mode {
