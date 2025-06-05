@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zayna - Authentic Moroccan Handicrafts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- ربط ملف الأنماط الخارجي -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo-area">
+            <!-- Image Logo for main header - Light mode -->
+            <img src="pictures/logo.png" alt="Zayna Logo Light" class="pulse-animation logo-light" />
+            <!-- Image Logo for main header - Dark mode -->
+            <!-- Make sure 'logodark.png' exists in your project folder -->
+            <img src="pictures/logodark.png" alt="Zayna Logo Dark" class="pulse-animation logo-dark" />
+            <div class="logo-text">Zayna<span class="tagline">Authentic Moroccan Crafts</span></div>
+        </div>
+        <nav>
+            <div class="search-bar"><input type="text" placeholder="Search products..." id="searchInput"><button
+                    onclick="searchProducts()"><i class="fas fa-search"></i></button>
+                <div class="search-results" id="searchResults"></div>
+            </div><a href="#" onclick="showPage('home')">Home</a><a href="#" onclick="showPage('products')">Shop</a><a
+                href="#" onclick="showPage('about')">About</a><a href="#" onclick="showPage('services')">Services</a><a
+                href="#" onclick="showPage('blog')">Blog</a><a href="#" onclick="showPage('contact')">Contact</a><a
+                href="#" onclick="showPage('faq')">FAQ</a>
+            <div class="language-switcher"><select onchange="changeLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="ar">العربية</option>
+                    <option value="fr">Français</option>
+                </select></div>
+            <div class="dark-mode-toggle" onclick="toggleDarkMode()"><i class="fas fa-moon"></i></div>
+            <!-- Updated cart icon in main menu -->
+            <div class="cart-icon" onclick="showCart()"><i class="fas fa-shopping-cart"></i><span
+                    class="cart-count">0</span></div>
+        </nav>
+        <div class="mobile-menu-toggle" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></div>
+    </header>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <!-- Image Logo for mobile menu header - Light mode -->
+            <img src="pictures/logo.png" alt="Zayna Logo Light" class="mobile-logo mobile-logo-light" />
+            <!-- Image Logo for mobile menu header - Dark mode -->
+            <!-- Make sure 'logodark.png' exists in your project folder -->
+            <img src="pictures/logodark.png" alt="Zayna Logo Dark" class="mobile-logo mobile-logo-dark" />
+            <button class="close-menu" onclick="toggleMobileMenu()"><i
+                    class="fas fa-times"></i></button></div>
+        <div class="mobile-menu-items"><a href="#" onclick="showPage('home'); toggleMobileMenu();">Home</a><a href="#"
+                onclick="showPage('products'); toggleMobileMenu();">Shop</a><a href="#"
+                onclick="showPage('about'); toggleMobileMenu();">About</a><a href="#"
+                onclick="showPage('services'); toggleMobileMenu();">Services</a><a href="#"
+                onclick="showPage('blog'); toggleMobileMenu();">Blog</a><a href="#"
+                onclick="showPage('contact'); toggleMobileMenu();">Contact</a><a href="#"
+                onclick="showPage('faq'); toggleMobileMenu();">FAQ</a>
+            <div class="language-switcher-mobile"><select onchange="changeLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="ar">العربية</option>
+                    <option value="fr">Français</option>
+                </select></div>
+        </div>
+        <div class="mobile-menu-footer">
+            <!-- Updated mobile cart icon -->
+            <div class="mobile-cart-icon" onclick="showCart(); toggleMobileMenu();"><i
+                    class="fas fa-shopping-bag"></i><span class="mobile-cart-count">0</span></div>
+            <div class="mobile-dark-mode-toggle" onclick="toggleDarkMode()"><i class="fas fa-moon"></i></div>
+        </div>
+    </div>
+    <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span id="currentPage"></span></div>
+    <section id="home" class="hero">
+        <div class="hero-slideshow" id="heroSlideshow"></div>
+        <div class="hero-content">
+            <h1>Authentic Moroccan Handicrafts</h1>
+            <p>Discover Morocco's rich heritage through our exquisite collection of handmade products crafted by skilled
+                artisans.</p>
+            <div class="hero-buttons"><button class="btn" onclick="showPage('products')">Shop Now</button><button
+                    class="btn btn-outline" onclick="showPage('about')">Learn More</button></div>
+        </div>
+        <div class="slider-controls"><button class="prev-slide" onclick="changeSlide(-1)"><i
+                    class="fas fa-chevron-left"></i></button><button class="next-slide" onclick="changeSlide(1)"><i
+                    class="fas fa-chevron-right"></i></button></div>
+    </section>
+    <section id="products" class="container">
+        <h2 class="section-title">Our Unique Collection</h2>
+        <p class="section-subtitle">Discover our handmade products crafted with traditional techniques</p>
+        <div class="filter-options">
+            <div class="filter-group"><label>Filter by:</label><select id="categoryFilter"
+                    onchange="filterProducts('category')">
+                    <option value="all">All Categories</option>
+                    <option value="rug">Rugs</option>
+                    <option value="pottery">Pottery</option>
+                    <option value="leather">Leather Goods</option>
+                    <option value="lamp">Lamps</option>
+                    <option value="textile">Textiles</option>
+                </select></div>
+            <div class="filter-group"><label>Sort by:</label><select id="sortFilter" onchange="filterProducts('sort')">
+                    <option value="default">Featured</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="rating">Customer Rating</option>
+                </select></div>
+        </div>
+        <div class="products" id="productsList"></div>
+    </section>
+    <section id="about" class="container">
+        <h2 class="section-title">About Zayna</h2>
+        <p class="section-subtitle">Preserving tradition through authentic Moroccan craftsmanship</p>
+        <div class="content-grid"
+            style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;margin-top:40px;">
+            <div class="about-img"><img src="pictures/zaynna.webp" alt="Artisan working"
+                    style="width:100%;border-radius:10px;"></div>
+            <div class="about-content">
+                <h3 style="color:var(--primary-color);margin-bottom:20px;">Our Story</h3>
+                <p style="margin-bottom:20px;line-height:1.8;">Founded in 2018, Zayna began with a simple mission: to
+                    bring the vibrant artistry of Moroccan craftsmanship to the world while supporting local artisans
+                    and preserving traditional techniques.</p>
+                <p style="margin-bottom:20px;line-height:1.8;">We work directly with over 200 skilled craftspeople
+                    across Morocco, ensuring fair trade practices and sustainable production methods. Each piece in our
+                    collection tells a story of cultural heritage, passed down through generations.</p>
+                <p style="line-height:1.8;">From the intricate patterns of Fez ceramics to the rich textures of Berber
+                    rugs, every product embodies centuries of artistic tradition. We invite you to bring a piece of
+                    Morocco's vibrant culture into your home.</p>
+            </div>
+        </div>
+        <div class="values-section" style="margin-top:60px;">
+            <h3 style="text-align:center;color:var(--primary-color);margin-bottom:40px;">Our Values</h3>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;">
+                <!-- Removed inline styles from value-card elements -->
+                <div class="value-card">
+                    <i class="fas fa-handshake"></i>
+                    <h4>Fair Trade</h4>
+                    <p>We ensure all artisans receive fair compensation for their work, supporting local communities.
+                    </p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-leaf"></i>
+                    <h4>Sustainability</h4>
+                    <p>Our production methods respect the environment, using natural materials and traditional
+                        techniques.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-history"></i>
+                    <h4>Cultural Heritage</h4>
+                    <p>We are committed to preserving and sharing the rich artistic traditions of Morocco.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="craftsmanship" class="container">
+        <h2 class="section-title">The Art of Craftsmanship</h2>
+        <p class="section-subtitle">Discover the meticulous process behind our handcrafted products</p>
+        <div class="craft-process">
+            <div class="craft-step"><img src="https://i.postimg.cc/tJG3Q6bR/craft-materials.jpg" alt="Raw Materials">
+                <h3>Selection of Materials</h3>
+                <p>Our artisans carefully select the finest raw materials, from high-quality wool for rugs to locally
+                    sourced clay for pottery. Each material is chosen for its durability, texture, and aesthetic
+                    quality.</p>
+            </div>
+            <div class="craft-step"><img src="https://i.postimg.cc/SRDHVxhC/craft-design.jpg" alt="Design Process">
+                <h3>Traditional Design</h3>
+                <p>Patterns and designs are drawn from centuries of Moroccan artistic tradition. Many motifs have
+                    symbolic meaning, telling stories of cultural beliefs, protection, and prosperity.</p>
+            </div>
+            <div class="craft-step"><img src="https://i.postimg.cc/QdzXHxFJ/craft-creation.jpg" alt="Creation Process">
+                <h3>Skilled Crafting</h3>
+                <p>Using techniques passed down through generations, our artisans transform raw materials into beautiful
+                    pieces. This process often takes days or even weeks, requiring patience and exceptional skill.</p>
+            </div>
+            <div class="craft-step"><img src="https://i.postimg.cc/fbQj1bXV/craft-finishing.jpg"
+                    alt="Finishing Touches">
+                <h3>Finishing Touches</h3>
+                <p>Each piece receives careful finishing to ensure durability and beauty. This may include natural
+                    dyeing processes, polishing, or detailing that brings the creation to life with vibrant colors and
+                    textures.</p>
+            </div>
+        </div>
+    </section>
+    <section id="services" class="container">
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-subtitle">Making your shopping experience exceptional</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-globe"></i></div>
+                <h3>Worldwide Shipping</h3>
+                <p>We deliver our handcrafted products to customers all over the world, carefully packaging each item to
+                    ensure it arrives safely.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+                <h3>Custom Orders</h3>
+                <p>Work directly with our artisans to create a custom piece that perfectly suits your preferences and
+                    space.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-home"></i></div>
+                <h3>Interior Design Consultation</h3>
+                <p>Our team can help you select the perfect Moroccan pieces to complement your home's aesthetic.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-gift"></i></div>
+                <h3>Gift Registry</h3>
+                <p>Create a wishlist of your favorite items that friends and family can purchase as gifts for special
+                    occasions.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-undo"></i></div>
+                <h3>Easy Returns</h3>
+                <p>If you're not completely satisfied with your purchase, we offer hassle-free returns within 30 days.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-certificate"></i></div>
+                <h3>Authenticity Certificate</h3>
+                <p>Each product comes with a certificate of authenticity, detailing its origin and the artisan who
+                    created it.</p>
+            </div>
+        </div>
+    </section>
+    <section id="testimonials" class="container">
+        <h2 class="section-title">Customer Stories</h2>
+        <p class="section-subtitle">Hear what our customers have to say about their Zayna experience</p>
+        <div class="testimonial-slider">
+            <div class="testimonial-item">
+                <div class="testimonial-content">
+                    <p>The Beni Ourain rug I purchased from Zayna transformed my living room. The quality is
+                        exceptional, and knowing it was ethically made makes it even more special. I've received
+                        countless compliments!</p>
+                </div>
+                <div class="testimonial-author">
+                    <div>
+                        <h4>Sarah Johnson</h4><span>New York, USA</span>
+                    </div><img src="https://i.postimg.cc/dV2YrK1f/customer1.jpg" alt="Sarah Johnson">
+                </div>
+            </div>
+            <div class="testimonial-item">
+                <div class="testimonial-content">
+                    <p>I've been collecting Moroccan pottery for years, but the pieces from Zayna are truly
+                        extraordinary. The craftsmanship is remarkable, and the customer service was incredibly helpful
+                        in finding exactly what I wanted.</p>
+                </div>
+                <div class="testimonial-author">
+                    <div>
+                        <h4>Michel Laurent</h4><span>Paris, France</span>
+                    </div><img src="https://i.postimg.cc/ryWp4Gns/customer2.jpg" alt="Michel Laurent">
+                </div>
+            </div>
+            <div class="testimonial-item">
+                <div class="testimonial-content">
+                    <p>As an interior designer, I rely on Zayna for authentic Moroccan pieces that add character to my
+                        projects. Their custom order service is fantastic—they brought my vision to life perfectly for a
+                        recent hotel design.</p>
+                </div>
+                <div class="testimonial-author">
+                    <div>
+                        <h4>Elena Rodriguez</h4><span>Barcelona, Spain</span>
+                    </div><img src="https://i.postimg.cc/xTxXBZV0/customer3.jpg" alt="Elena Rodriguez">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="gallery" class="container">
+        <h2 class="section-title">Inspiration Gallery</h2>
+        <p class="section-subtitle">Explore how our products bring Moroccan charm to homes around the world</p>
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openGalleryModal('https://i.postimg.cc/7htv528M/gallery1.jpg')"><img
+                    src="https://i.postimg.cc/7htv528M/gallery1.jpg" alt="Living room with Moroccan rug"></div>
+            <div class="gallery-item" onclick="openGalleryModal('https://i.postimg.cc/GmbRLMZ9/gallery2.jpg')"><img
+                    src="https://i.postimg.cc/GmbRLMZ9/gallery2.jpg" alt="Dining area with Moroccan lamps"></div>
+            <div class="gallery-item" onclick="openGalleryModal('https://i.postimg.cc/sfW0nqH1/gallery3.jpg')"><img
+                    src="https://i.postimg.cc/sfW0nqH1/gallery3.jpg" alt="Bedroom with Moroccan textiles"></div>
+            <div class="gallery-item" onclick="openGalleryModal('https://i.postimg.cc/nzbdQZ5y/gallery4.jpg')"><img
+                    src="https://i.postimg.cc/nzbdQZ5y/gallery4.jpg" alt="Home office with Moroccan decor"></div>
+            <div class="gallery-item" onclick="openGalleryModal('https://i.postimg.cc/ZqWKyzJt/gallery5.jpg')"><img
+                    src="https://i.postimg.cc/ZqWKyzJt/gallery5.jpg" alt="Bathroom with Moroccan tiles"></div>
+            <div class="gallery-item" onclick="openGalleryModal('https://i.postimg.cc/jj21Lbb0/gallery6.jpg')"><img
+                    src="https://i.postimg.cc/jj21Lbb0/gallery6.jpg" alt="Outdoor space with Moroccan furniture"></div>
+        </div>
+    </section>
+    <section id="blog" class="container">
+        <h2 class="section-title">Blog & Stories</h2>
+        <p class="section-subtitle">Discover the rich culture and traditions behind our crafts</p>
+        <div class="blog-grid">
+            <div class="blog-post">
+                <div class="blog-image"><img src="pictures/blog1.webp"
+                        alt="The Art of Moroccan Rug Weaving"></div>
+                <div class="blog-content">
+                    <h3>The Art of Moroccan Rug Weaving</h3>
+                    <div class="blog-meta"><span><i class="far fa-calendar"></i> May 15, 2023</span><span><i
+                                class="far fa-user"></i> abdellwahed adellaoui</span></div>
+                    <p>Explore the ancient techniques and symbolism behind traditional Moroccan rugs, from the nomadic
+                        Berber designs to the elaborate patterns of urban workshops.</p><a href="#"
+                        class="read-more">Read More</a>
+                </div>
+            </div>
+            <div class="blog-post">
+                <div class="blog-image"><img src="pictures/blog2.webp"
+                        alt="Colors of Morocco: Natural Dye Techniques"></div>
+                <div class="blog-content">
+                    <h3>Colors of Morocco: Natural Dye Techniques</h3>
+                    <div class="blog-meta"><span><i class="far fa-calendar"></i> April 3, 2023</span><span><i
+                                class="far fa-user"></i> abdellwahed adellaoui</span></div>
+                    <p>Discover how Moroccan artisans create vibrant colors using traditional, natural dyeing methods
+                        with plants, minerals, and other organic materials.</p><a href="#" class="read-more">Read
+                        More</a>
+                </div>
+            </div>
+            <div class="blog-post">
+                <div class="blog-image"><img src="pictures/blog3.webp"
+                        alt="The Zellige Mosaic Masters of Fez"></div>
+                <div class="blog-content">
+                    <h3>The Zellige Mosaic Masters of Fez</h3>
+                    <div class="blog-meta"><span><i class="far fa-calendar"></i> March 18, 2023</span><span><i
+                                class="far fa-user"></i> abdellwahed adellaoui</span></div>
+                    <p>Meet the master craftsmen preserving the intricate art of Zellige mosaics, creating geometric
+                        wonders one tiny hand-cut tile at a time.</p><a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="faq" class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Find answers to common questions about our products and services</p>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)"><span>How can I determine the authenticity of
+                        Moroccan handicrafts?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">
+                    <p>Authentic Moroccan handicrafts are characterized by handmade quality, natural materials,
+                        traditional designs, and irregular patterns that show human creation rather than machine
+                        precision. Each Zayna product comes with an authenticity certificate detailing its origin,
+                        materials, and the artisan who created it.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)"><span>What shipping methods do you offer?</span><i
+                        class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">
+                    <p>We offer standard shipping (10-15 business days) and express shipping (3-5 business days) options
+                        for international orders. For orders within Morocco, delivery typically takes 1-3 business days.
+                        All items are carefully packaged to ensure safe arrival.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)"><span>How do I care for my Moroccan rug?</span><i
+                        class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">
+                    <p>For regular maintenance, vacuum your rug using a low-power setting without beater bars. For
+                        spills, blot immediately with a clean cloth. Professional cleaning is recommended every 1-2
+                        years. Rotate your rug periodically to ensure even wear, and keep out of direct sunlight to
+                        prevent fading.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)"><span>Can I request custom sizes or colors for
+                        products?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">
+                    <p>Yes! We offer custom orders for most of our products. You can specify dimensions, colors, and
+                        even design elements. Custom orders typically take 4-8 weeks to complete, depending on the
+                        complexity. Contact our customer service team to discuss your specific requirements.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)"><span>What is your return policy?</span><i
+                        class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">
+                    <p>We accept returns within 30 days of delivery for most items in their original condition. Custom
+                        orders are non-returnable. Customers are responsible for return shipping costs unless the item
+                        arrived damaged or incorrect. Please contact customer service to initiate a return.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-subtitle">Questions or comments? We'd love to hear from you</p>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <div class="contact-details">
+                    <div class="contact-item"><i class="fas fa-map-marker-alt contact-icon"></i>
+                        <div>
+                            <p>123 Artisan Street, Medina Quarter</p>
+                            <p>Marrakech 40000, Morocco</p>
+                        </div>
+                    </div>
+                    <div class="contact-item"><i class="fas fa-phone contact-icon"></i>
+                        <div>
+                            <p>+212 688219102</p>
+                            <p>Mon-Fri: 9AM - 6PM (GMT+1)</p>
+                        </div>
+                    </div>
+                    <div class="contact-item"><i class="fas fa-envelope contact-icon"></i>
+                        <div>
+                            <p>info@zayna-crafts.com</p>
+                            <p>support@zayna-crafts.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-links"><a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a><a
+                        href="#" class="social-link"><i class="fab fa-instagram"></i></a><a href="#"
+                        class="social-link"><i class="fab fa-pinterest-p"></i></a><a href="#" class="social-link"><i
+                            class="fab fa-twitter"></i></a></div>
+                <div class="store-map">
+                    <h3>Visit Our Store</h3><iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13597.692357610756!2d-7.9941291!3d31.6294723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdafee8d96179e51%3A0x5950b6534f87adb8!2sMedina%2C%20Marrakesh%2C%20Morocco!5e0!3m2!1sen!2sus!4v1677918726384!5m2!1sen!2sus"
+                        width="100%" height="250" style="border:0;border-radius:10px;" allowfullscreen=""
+                        loading="lazy"></iframe>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group"><label for="name">Name</label><input type="text" class="form-control"
+                            id="name" required></div>
+                    <div class="form-group"><label for="email">Email</label><input type="email" class="form-control"
+                            id="email" required></div>
+                    <div class="form-group"><label for="subject">Subject</label><input type="text" class="form-control"
+                            id="subject" required></div>
+                    <div class="form-group"><label for="message">Message</label><textarea class="form-control"
+                            id="message" rows="5" required></textarea></div><button type="submit"
+                        class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About Zayna</h3>
+                <p style="color:#bbb;margin-bottom:15px;">Zayna brings authentic Moroccan handicrafts to homes
+                    worldwide, supporting artisans and preserving traditional crafts.</p>
+                <div class="social-links" style="margin-top:15px;"><a href="#" class="social-link"><i
+                            class="fab fa-facebook-f"></i></a><a href="#" class="social-link"><i
+                            class="fab fa-instagram"></i></a><a href="#" class="social-link"><i
+                            class="fab fa-pinterest-p"></i></a><a href="#" class="social-link"><i
+                            class="fab fa-twitter"></i></a></div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('products')">Shop</a></li>
+                    <li><a href="#" onclick="showPage('about')">About Us</a></li>
+                    <li><a href="#" onclick="showPage('blog')">Blog</a></li>
+                    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p style="color:#bbb;margin-bottom:15px;">Subscribe to receive updates, access to exclusive deals, and
+                    more.</p>
+                <form class="newsletter-form"><input type="email" class="newsletter-input"
+                        placeholder="Enter your email"><button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2023 Zayna Moroccan Handicrafts. All rights reserved.</p>
+        </div>
+    </footer>
+    <div class="chat-widget"><button class="chat-button" onclick="toggleChat()"><i class="fas fa-comments"></i></button>
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-header">
+                <h3>Customer Support</h3><button class="close-chat" onclick="toggleChat()"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message support"><img src="pictures/iconsupport.png" class="avatar">
+                    <div class="message-content">
+                        <p>Hello! How can I help you today?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input"><input type="text" placeholder="Type a message..." id="messageInput"><button
+                    onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button></div>
+        </div>
+    </div>
+    <div id="cartModal">
+        <div class="cart-header">
+            <h3>Your Shopping Cart</h3>
+            <!-- Updated close cart button icon -->
+            <button onclick="hideCart()" title="إغلاق السلة"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="cartItems">
+            <div class="cart-empty"><i class="fas fa-shopping-cart"
+                    style="font-size:3rem;color:#ccc;margin-bottom:15px;"></i>
+                <p>Your cart is empty</p>
+            </div>
+        </div>
+        <div class="cart-summary">
+            <div class="cart-total"><span>Total:</span><span>$0.00</span></div><button class="btn" style="width:100%;"
+                onclick="checkout()">Checkout</button>
+        </div>
+    </div>
+    <div id="galleryModal"><button class="modal-close" onclick="closeGalleryModal()"><i
+                class="fas fa-times"></i></button>
+        <div class="modal-content"><img id="modalImage" src="" alt="Gallery image"></div>
+    </div>
+    <!-- ربط ملف JavaScript الخارجي -->
+    <script src="script.js"></script>
+</body>
+
+</html>
