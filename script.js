@@ -25,7 +25,7 @@ const products = [{
     name_fr: 'Tajine en Céramique Artisanal',
     price: 89,
     oldPrice: 115,
-    image: 'pictures/prod2.webp',
+    image: '/pictures/prod2.webp',
     category: 'pottery',
     rating: 4.9,
     reviews: 87,
