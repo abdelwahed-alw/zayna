@@ -13,10 +13,13 @@
     --dark-text: #f5f5f5
 }
 
-* {
+html, body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box
+    box-sizing: border-box; /* التأكد من تطبيق هذا على جميع العناصر */
+    overflow-x: hidden; /* منع التمرير الأفقي على مستوى المستند والجسم */
+    width: 100%; /* ضمان أن يشغل العرض الكامل */
+    max-width: 100%; /* منع التجاوز عن العرض الأقصى للشاشة */
 }
 
 body {
@@ -24,7 +27,6 @@ body {
     background-color: var(--light-bg);
     color: var(--text-color);
     line-height: 1.6;
-    overflow-x: hidden; /* تم إضافة هذه الخاصية لمنع التمرير الأفقي غير المرغوب فيه */
 }
 
 body.dark-mode {
@@ -116,6 +118,7 @@ header {
     animation: pulse 2s infinite;
     transition: opacity 0.3s ease;
 }
+
 
 .mobile-menu-header .mobile-logo {
     height: 60px;
