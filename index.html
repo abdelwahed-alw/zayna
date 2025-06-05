@@ -12,10 +12,7 @@
 <body>
     <header>
         <div class="logo-area">
-            <!-- Image Logo for main header - Light mode -->
             <img src="pictures/logo.png" alt="Zayna Logo Light" class="pulse-animation logo-light" />
-            <!-- Image Logo for main header - Dark mode -->
-            <!-- Make sure 'logodark.png' exists in your project folder -->
             <img src="pictures/logodark.png" alt="Zayna Logo Dark" class="pulse-animation logo-dark" />
             <div class="logo-text">Zayna<span class="tagline">Authentic Moroccan Crafts</span></div>
         </div>
@@ -33,7 +30,6 @@
                     <option value="fr">Français</option>
                 </select></div>
             <div class="dark-mode-toggle" onclick="toggleDarkMode()"><i class="fas fa-moon"></i></div>
-            <!-- Updated cart icon in main menu -->
             <div class="cart-icon" onclick="showCart()"><i class="fas fa-shopping-cart"></i><span
                     class="cart-count">0</span></div>
         </nav>
@@ -41,10 +37,7 @@
     </header>
     <div class="mobile-menu" id="mobileMenu">
         <div class="mobile-menu-header">
-            <!-- Image Logo for mobile menu header - Light mode -->
             <img src="pictures/logo.png" alt="Zayna Logo Light" class="mobile-logo mobile-logo-light" />
-            <!-- Image Logo for mobile menu header - Dark mode -->
-            <!-- Make sure 'logodark.png' exists in your project folder -->
             <img src="pictures/logodark.png" alt="Zayna Logo Dark" class="mobile-logo mobile-logo-dark" />
             <button class="close-menu" onclick="toggleMobileMenu()"><i
                     class="fas fa-times"></i></button></div>
@@ -62,7 +55,6 @@
                 </select></div>
         </div>
         <div class="mobile-menu-footer">
-            <!-- Updated mobile cart icon -->
             <div class="mobile-cart-icon" onclick="showCart(); toggleMobileMenu();"><i
                     class="fas fa-shopping-bag"></i><span class="mobile-cart-count">0</span></div>
             <div class="mobile-dark-mode-toggle" onclick="toggleDarkMode()"><i class="fas fa-moon"></i></div>
@@ -127,7 +119,6 @@
         <div class="values-section" style="margin-top:60px;">
             <h3 style="text-align:center;color:var(--primary-color);margin-bottom:40px;">Our Values</h3>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;">
-                <!-- Removed inline styles from value-card elements -->
                 <div class="value-card">
                     <i class="fas fa-handshake"></i>
                     <h4>Fair Trade</h4>
@@ -490,7 +481,6 @@
     <div id="cartModal">
         <div class="cart-header">
             <h3>Your Shopping Cart</h3>
-            <!-- Updated close cart button icon -->
             <button onclick="hideCart()" title="إغلاق السلة"><i class="fas fa-times"></i></button>
         </div>
         <div id="cartItems">
@@ -508,7 +498,6 @@
                 class="fas fa-times"></i></button>
         <div class="modal-content"><img id="modalImage" src="" alt="Gallery image"></div>
     </div>
-    <!-- ربط ملف JavaScript الخارجي -->
     <script src="script.js"></script>
 </body>
 
