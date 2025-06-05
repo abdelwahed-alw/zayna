@@ -204,24 +204,17 @@ const translations = {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-    // إخفاء جميع الأقسام ما عدا قسم "home" عند تحميل الصفحة
     document.querySelectorAll('section').forEach(section => {
         if (section.id !== 'home') section.style.display = 'none'
     });
-    // تهيئة عرض الشرائح في قسم البطل (Hero Slideshow)
     initHeroSlideshow();
-    // تحميل المنتجات
     loadProducts();
-    // تحديث واجهة مستخدم سلة التسوق
     updateCartUI();
-    // تغيير اللغة بناءً على اللغة الافتراضية
     changeLanguage(currentLanguage);
-    // التحقق من وضع الظلام المحفوظ في التخزين المحلي وتطبيقه
     const darkMode = localStorage.getItem('darkMode') === 'true';
     if (darkMode) {
         document.body.classList.add('dark-mode');
         document.querySelector('.dark-mode-toggle i').classList.replace('fa-moon', 'fa-sun');
-        // التأكد من تحديث أيقونة الجوال أيضًا عند التحميل إذا كان وضع الظلام نشطًا
         const mobileIcon = document.querySelector('.mobile-dark-mode-toggle i');
         if (mobileIcon) {
             mobileIcon.classList.replace('fa-moon', 'fa-sun');
@@ -229,7 +222,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// تهيئة عرض الشرائح في قسم البطل (Hero Slideshow)
 function initHeroSlideshow() {
     const slideshow = document.getElementById('heroSlideshow');
     slides.forEach((slide, index) => {
@@ -238,13 +230,11 @@ function initHeroSlideshow() {
         slideElement.style.backgroundImage = `url(${slide})`;
         slideshow.appendChild(slideElement)
     });
-    // تغيير الشريحة كل 5 ثوانٍ
     setInterval(() => {
         changeSlide(1)
     }, 5000)
 }
 
-// تغيير الشريحة في عرض الشرائح
 function changeSlide(direction) {
     const slideshow = document.getElementById('heroSlideshow');
     const slides = slideshow.querySelectorAll('.hero-slide');
@@ -255,7 +245,6 @@ function changeSlide(direction) {
     slides[currentSlide].classList.add('active')
 }
 
-// إظهار صفحة معينة وإخفاء الصفحات الأخرى
 function showPage(pageId) {
     document.querySelectorAll('section').forEach(section => {
         section.style.display = 'none'
@@ -265,21 +254,16 @@ function showPage(pageId) {
         targetSection.style.display = 'block';
         targetSection.style.animation = 'fadeIn 0.5s ease'
     }
-    // تحديث مسار التنقل (breadcrumb)
     updateBreadcrumb(pageId);
-    // تطبيق تأثيرات الرسوم المتحركة على منشورات المدونة إذا كانت الصفحة هي "blog"
     if (pageId === 'blog') {
         document.querySelectorAll('.blog-post').forEach((post, index) => {
             post.style.animationDelay = `${index*0.1}s`
         })
     }
-    // إخفاء سلة التسوق إذا كانت مفتوحة
     document.getElementById('cartModal').classList.remove('active');
-    // التمرير إلى أعلى الصفحة
     window.scrollTo(0, 0)
 }
 
-// تحديث مسار التنقل (breadcrumb) بناءً على الصفحة الحالية
 function updateBreadcrumb(pageId) {
     const titles = {
         'home': 'Home',
@@ -296,30 +280,25 @@ function updateBreadcrumb(pageId) {
     document.getElementById('currentPage').textContent = pageId === 'home' ? '' : ` / ${titles[pageId]}`
 }
 
-// تحميل وعرض المنتجات في قائمة المنتجات
 function loadProducts() {
     const productsList = document.getElementById('productsList');
-    productsList.innerHTML = ''; // مسح المنتجات الموجودة
+    productsList.innerHTML = '';
     products.forEach(product => {
         const productName = currentLanguage === 'en' ? product.name : currentLanguage === 'ar' ? product
             .name_ar : product.name_fr;
-        // تحديد ما إذا كان المنتج في السلة لضبط نص الزر
         const isInCart = cartItems.some(item => item.id === product.id);
         const cartButtonText = isInCart ? translations[currentLanguage].inCart : translations[currentLanguage].addToCart;
 
-        // إنشاء HTML للمنتج
         const productHtml =
             `<div class="product" data-id="${product.id}" data-category="${product.category}" data-price="${product.price}" data-rating="${product.rating}"><div class="product-image"><img src="${product.image}" alt="${productName}">${product.oldPrice?`<div class="product-badge">SALE</div>`:''}</div><div class="product-info"><h3 class="product-title">${productName}</h3><span class="product-price">${product.oldPrice?`<small>$${product.oldPrice}</small>`:''}$${product.price}</span><div class="product-rating"><span class="rating-stars">${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5-Math.floor(product.rating))}</span><span class="reviews-count">(${product.reviews} ${translations[currentLanguage].reviews})</span></div><div class="product-actions"><button class="wishlist"><i class="far fa-heart"></i></button><button class="add-to-cart" onclick="addToCart(${product.id})">${cartButtonText}</button></div></div></div>`;
         productsList.innerHTML += productHtml
     })
 }
 
-// وظيفة لتصفية المنتجات (لم يتم تنفيذها بالكامل في الكود الأصلي)
 function filterProducts(filterType) {
     console.log(`Filtering by ${filterType}`)
 }
 
-// تحديث واجهة مستخدم سلة التسوق بناءً على العناصر الموجودة في السلة
 function updateCartUI() {
     const cartCount = document.querySelector('.cart-count');
     const mobileCartCount = document.querySelector('.mobile-cart-count');
@@ -364,7 +343,6 @@ function updateCartUI() {
     }
 }
 
-// إضافة منتج إلى سلة التسوق
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
@@ -383,7 +361,6 @@ function addToCart(productId) {
         })
     }
     updateCartUI();
-    // إضافة تأثير اهتزاز إلى أيقونة السلة
     const cartIcon = document.querySelector('.cart-icon');
     cartIcon.style.animation = 'shake 0.5s';
     setTimeout(() => {
@@ -391,11 +368,9 @@ function addToCart(productId) {
     }, 500);
     const productName = currentLanguage === 'en' ? product.name : currentLanguage === 'ar' ? product.name_ar :
         product.name_fr;
-    // تنبيه المستخدم بأن المنتج قد أضيف إلى السلة
     alert(`${productName} ${translations[currentLanguage].addedToCart}`)
 }
 
-// تحديث كمية منتج في سلة التسوق
 function updateCartItem(productId, change) {
     const itemIndex = cartItems.findIndex(item => item.id === productId);
     if (itemIndex > -1) {
@@ -407,34 +382,28 @@ function updateCartItem(productId, change) {
     }
 }
 
-// إزالة منتج من سلة التسوق
 function removeCartItem(productId) {
     cartItems = cartItems.filter(item => item.id !== productId);
     updateCartUI();
 }
 
-// إظهار سلة التسوق
 function showCart() {
     document.getElementById('cartModal').classList.add('active')
 }
 
-// إخفاء سلة التسوق
 function hideCart() {
     document.getElementById('cartModal').classList.remove('active');
-    // إضافة تأثير خفيف عند الإغلاق
     const cartIcon = document.querySelector('.cart-icon');
-    cartIcon.innerHTML = '<i class="fas fa-shopping-bag"></i>'; // تغيير الأيقونة مؤقتًا
+    cartIcon.innerHTML = '<i class="fas fa-shopping-bag"></i>';
     setTimeout(() => {
-        cartIcon.innerHTML = '<i class="fas fa-shopping-cart"></i>'; // إعادة الأيقونة الأصلية
+        cartIcon.innerHTML = '<i class="fas fa-shopping-cart"></i>';
     }, 300);
 }
 
-// تبديل قائمة الجوال (إظهار/إخفاء)
 function toggleMobileMenu() {
     document.getElementById('mobileMenu').classList.toggle('active')
 }
 
-// تبديل إجابة الأسئلة الشائعة (إظهار/إخفاء)
 function toggleFAQ(element) {
     element.classList.toggle('active');
     const answer = element.nextElementSibling;
@@ -445,23 +414,19 @@ function toggleFAQ(element) {
     }
 }
 
-// فتح نافذة معرض الصور المنبثقة
 function openGalleryModal(imageSrc) {
     document.getElementById('modalImage').src = imageSrc;
     document.getElementById('galleryModal').style.display = 'block'
 }
 
-// إغلاق نافذة معرض الصور المنبثقة
 function closeGalleryModal() {
     document.getElementById('galleryModal').style.display = 'none'
 }
 
-// تبديل عرض الدردشة (إظهار/إخفاء)
 function toggleChat() {
     document.getElementById('chatContainer').classList.toggle('active')
 }
 
-// إرسال رسالة في الدردشة
 function sendMessage() {
     const messageInput = document.getElementById('messageInput');
     const message = messageInput.value.trim();
@@ -479,27 +444,23 @@ function sendMessage() {
     }
 }
 
-// وظيفة البحث عن المنتجات (لم يتم تنفيذها بالكامل في الكود الأصلي)
 function searchProducts() {
     const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
     console.log(`Searching for: ${searchInput}`)
 }
 
-// تغيير لغة الموقع
 function changeLanguage(lang) {
     currentLanguage = lang;
     document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr'; // ضبط اتجاه النص للغة العربية
-    // تحديث قيمة قوائم اختيار اللغة
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.querySelectorAll('.language-switcher select, .language-switcher-mobile select').forEach(select => {
         select.value = lang
     });
-    updateTranslations(); // تحديث جميع النصوص المترجمة
-    loadProducts(); // إعادة تحميل المنتجات لتحديث أسمائها
-    updateCartUI() // تحديث سلة التسوق لتحديث أسمائها
+    updateTranslations();
+    loadProducts();
+    updateCartUI()
 }
 
-// تحديث جميع النصوص المترجمة في الصفحة
 function updateTranslations() {
     document.querySelectorAll('nav a').forEach((link, index) => {
         const keys = ['home', 'products', 'about', 'services', 'blog', 'contact', 'faq'];
@@ -540,20 +501,17 @@ function updateTranslations() {
     })
 }
 
-// تبديل وضع الظلام (Dark Mode)
 function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode'); // تبديل فئة وضع الظلام على الجسم
-    const icon = document.querySelector('.dark-mode-toggle i'); // أيقونة وضع الظلام في القائمة الرئيسية
-    const mobileIcon = document.querySelector('.mobile-dark-mode-toggle i'); // أيقونة وضع الظلام في قائمة الجوال
-    icon.classList.toggle('fa-moon'); // تبديل أيقونة القمر
-    icon.classList.toggle('fa-sun'); // تبديل أيقونة الشمس
+    document.body.classList.toggle('dark-mode');
+    const icon = document.querySelector('.dark-mode-toggle i');
+    const mobileIcon = document.querySelector('.mobile-dark-mode-toggle i');
+    icon.classList.toggle('fa-moon');
+    icon.classList.toggle('fa-sun');
     if (mobileIcon) {
         mobileIcon.classList.toggle('fa-moon');
         mobileIcon.classList.toggle('fa-sun')
     }
-    // حفظ حالة وضع الظلام في التخزين المحلي
     localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
 
-    // إعادة تحميل السلة بعد تغيير الوضع (للتأكد من تحديث الأنماط)
     updateCartUI();
 }
